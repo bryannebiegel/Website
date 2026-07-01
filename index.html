@@ -611,10 +611,25 @@
       color: rgba(20,42,74,0.5);
     }
 
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
     .footer-copy {
       font-size: 0.775rem;
       color: rgba(20,42,74,0.35);
     }
+
+    .footer-policy-link {
+      font-size: 0.775rem;
+      color: rgba(20,42,74,0.45);
+      text-decoration: none;
+    }
+
+    .footer-policy-link:hover { color: var(--navy-dark); }
 
     /* =====================
        RESPONSIVE
@@ -833,7 +848,10 @@
       </svg>
       <span class="footer-wordmark">AI-Empowered Solutions</span>
     </a>
-    <span class="footer-copy">© 2026 AI-Empowered Solutions. All rights reserved.</span>
+    <div class="footer-right">
+      <a href="privacy-policy.html" class="footer-policy-link">Privacy Policy</a>
+      <span class="footer-copy">© 2026 AI-Empowered Solutions. All rights reserved.</span>
+    </div>
   </footer>
 
 </body>
