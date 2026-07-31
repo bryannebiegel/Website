@@ -27,6 +27,7 @@
       --ink-mid:     #544A44;
       --mauve:       #D2604A;
       --mauve-dark:  #B24328;
+      --mauve-deep:  #9E3820;
       --white:       #FFFFFF;
       --border:      #E7DACB;
       --ink-90:  rgba(42,35,32,0.90);
@@ -38,6 +39,7 @@
       --ink-10:  rgba(42,35,32,0.10);
       --surface-card-hover: #FDF8F2;
       --surface-quote:      #F7DDD5;
+      --stone-dark:         #F0CCBF;
 
       --font-sans: 'Public Sans', system-ui, -apple-system, sans-serif;
       --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
@@ -56,13 +58,68 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    /* Visible keyboard focus — no change to resting appearance */
+    a:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+
+    /* Respect reduced-motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+
+    /* =====================
+       HEADER STACK
+       Banner + nav share one fixed container, so the nav always sits
+       directly below the banner whatever height the banner wraps to.
+    ===================== */
+    .header-stack {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 101;
+    }
+
+    /* =====================
+       TOP BANNER
+    ===================== */
+    .top-banner {
+      background: var(--ink);
+      color: var(--greige);
+      padding: 12px 6%;
+      text-align: center;
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .top-banner strong {
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .banner-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mauve);
+    }
+
+    .top-banner span.banner-divider {
+      margin: 0 0.6em;
+      opacity: 0.4;
+    }
+
     /* =====================
        NAV
     ===================== */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
       background: var(--greige);
       border-bottom: 1px solid var(--ink-10);
       padding: 0 6%;
@@ -97,7 +154,7 @@
     .nav-links a {
       font-size: 0.875rem;
       font-weight: 400;
-      color: var(--ink-60);
+      color: var(--ink-70);
       text-decoration: none;
       transition: color 0.2s;
     }
@@ -105,28 +162,55 @@
     .nav-links a:hover { color: var(--ink); }
 
     .nav-cta {
-      background: var(--mauve) !important;
-      color: white !important;
+      background: var(--mauve-dark) !important;
+      color: var(--white) !important;
       padding: 8px 20px !important;
       border-radius: 0 !important;
       font-weight: 500 !important;
       transition: background 0.2s !important;
     }
 
-    .nav-cta:hover { background: var(--mauve-dark) !important; }
+    .nav-cta:hover { background: var(--mauve-deep) !important; }
 
     /* =====================
        HERO
     ===================== */
     .hero {
       background: var(--ash);
-      padding: 132px 6% 100px;
+      padding: 196px 6% 100px;
       min-height: 88vh;
+      min-height: 88svh;
       display: flex;
       align-items: center;
     }
 
+    /* Matches the 1100px centred measure used by .section-inner in every
+       other section, so the hero text lines up with the content below it
+       and the art sits next to the text instead of at the far edge. */
+    .hero-layout {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+
     .hero-inner { max-width: 740px; }
+
+    /* Hero clipart — unframed so it sits in the page rather than reading
+       as a pasted-in panel. Decorative; drops out below 1200px. */
+    .hero-art {
+      flex: 0 1 300px;
+      max-width: 300px;
+    }
+
+    .hero-art svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
 
     .eyebrow {
       font-family: var(--font-mono);
@@ -134,17 +218,26 @@
       font-weight: 500;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--mauve);
+      color: var(--mauve-dark);
       margin-bottom: 1.75rem;
       display: block;
     }
 
+    /* Hero eyebrow carries the service list, so it runs larger than the
+       one-or-two-word eyebrows in the sections below. */
+    .hero .eyebrow { font-size: 0.9rem; }
+
+    /* Sized to match .section-heading exactly — same clamp, leading and
+       tracking — so the hero headline and the section headings below it
+       read at one size. Kept at weight 900 (vs 800) so the hero still
+       carries a little more presence. */
     .hero h1 {
       font-family: var(--font-sans);
-      font-size: clamp(2.75rem, 6vw, 4.5rem);
+      font-size: clamp(1.9rem, 3.2vw, 2.75rem);
       font-weight: 900;
-      line-height: 0.98;
-      letter-spacing: -0.035em;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      text-wrap: balance;
       color: var(--ink);
       margin-bottom: 1.75rem;
     }
@@ -179,8 +272,8 @@
 
     .btn-primary {
       display: inline-block;
-      background: var(--mauve);
-      color: white;
+      background: var(--mauve-dark);
+      color: var(--white);
       padding: 14px 32px;
       border-radius: 0;
       font-size: 0.9375rem;
@@ -189,7 +282,7 @@
       transition: background 0.2s;
     }
 
-    .btn-primary:hover { background: var(--mauve-dark); }
+    .btn-primary:hover { background: var(--mauve-deep); }
 
     .btn-secondary {
       display: inline-block;
@@ -203,7 +296,7 @@
       transition: background 0.2s;
     }
 
-    .btn-secondary:hover { background: #f0ccbf; }
+    .btn-secondary:hover { background: var(--stone-dark); }
 
     /* =====================
        SHARED SECTION STYLES
@@ -221,8 +314,19 @@
       font-weight: 800;
       line-height: 1.1;
       letter-spacing: -0.02em;
+      text-wrap: balance;
       color: var(--ink);
       margin-bottom: 1.75rem;
+    }
+
+    /* Secondary clause inside a section heading: steps down in size so the
+       first line leads. Sized in em so it tracks the heading's clamp, with
+       slightly looser tracking to suit the smaller size. */
+    .heading-sub {
+      display: block;
+      font-size: 0.64em;
+      letter-spacing: -0.015em;
+      margin-top: 0.15em;
     }
 
     /* =====================
@@ -230,7 +334,27 @@
     ===================== */
     .problem { background: var(--greige); }
 
+    .problem .section-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+
     .problem-body { max-width: 660px; }
+
+    /* "Start small and build out", drawn. Decorative; drops out below
+       960px so the body copy keeps a comfortable measure. */
+    .problem-art {
+      flex: 0 1 260px;
+      max-width: 260px;
+    }
+
+    .problem-art svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
 
     .problem-body p {
       font-size: 1.0625rem;
@@ -268,11 +392,23 @@
     .service-card:last-child { border-right: none; }
     .service-card:hover { background: var(--surface-card-hover); }
 
+    /* Per-service spot icon. Decorative — the card heading carries meaning. */
+    .service-icon {
+      width: 44px;
+      margin-bottom: 1.25rem;
+    }
+
+    .service-icon svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
     .service-num {
       font-family: var(--font-mono);
       font-size: 0.65rem;
       font-weight: 400;
-      color: var(--mauve);
+      color: var(--mauve-dark);
       letter-spacing: 0.1em;
       text-transform: uppercase;
       margin-bottom: 1.25rem;
@@ -310,7 +446,6 @@
     ===================== */
     .about {
       background: var(--white);
-      border-top: 1.5px solid var(--border);
     }
 
     .about-layout {
@@ -348,7 +483,7 @@
       font-weight: 500;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--mauve);
+      color: var(--mauve-dark);
       display: block;
       margin-bottom: 1.75rem;
     }
@@ -359,6 +494,16 @@
       color: var(--ink-mid);
       line-height: 1.85;
       margin-bottom: 1.125rem;
+    }
+
+    .about-tagline {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1.5px solid var(--border);
     }
 
     .about-creds {
@@ -391,6 +536,9 @@
       max-width: 580px;
       margin: 0 auto;
     }
+
+    /* The section is centred, so centre the button pair too. */
+    .final-cta .cta-group { justify-content: center; }
 
     .final-cta p {
       font-size: 1.0625rem;
@@ -426,14 +574,14 @@
 
     .disclaimer p {
       font-size: 0.775rem;
-      color: var(--ink-45);
+      color: var(--ink-70);
       line-height: 1.7;
       max-width: 1100px;
       margin: 0 auto;
     }
 
     .disclaimer strong {
-      color: var(--ink-60);
+      color: var(--ink-90);
       font-weight: 600;
     }
 
@@ -477,12 +625,12 @@
       font-family: var(--font-mono);
       font-size: 0.7rem;
       letter-spacing: 0.08em;
-      color: var(--ink-45);
+      color: var(--ink-70);
     }
 
     .footer-policy-link {
       font-size: 0.775rem;
-      color: var(--ink-45);
+      color: var(--ink-70);
       text-decoration: none;
     }
 
@@ -491,7 +639,16 @@
     /* =====================
        RESPONSIVE
     ===================== */
+    /* The hero accent only appears when there is genuinely room for it
+       beside the 740px text block — below this it would squeeze the
+       headline, so it drops out entirely. */
+    @media (max-width: 1200px) {
+      .hero-art { display: none; }
+    }
+
     @media (max-width: 960px) {
+      .problem-art { display: none; }
+      .problem .section-inner { display: block; }
       .services-grid { grid-template-columns: repeat(2, 1fr); }
       .service-card:nth-child(2) { border-right: none; }
       .service-card:nth-child(3) { border-top: 1.5px solid var(--border); }
@@ -502,11 +659,16 @@
     }
 
     @media (max-width: 768px) {
+      .top-banner { font-size: 0.72rem; }
       nav { padding: 0 5%; }
-      .nav-links { display: none; }
-      .hero { padding: 120px 5% 80px; }
+      /* Collapse the text links, keep the logo + booking CTA.
+         All sections remain reachable by scrolling. */
+      .nav-links { gap: 0; }
+      .nav-links li:not(:last-child) { display: none; }
+      .hero { padding: 196px 5% 80px; }
       section { padding: 72px 5%; }
       .about-layout { grid-template-columns: 1fr; }
+      .problem .section-inner { display: block; }
       .about-photo { max-width: 200px; }
       .about-photo img { aspect-ratio: 4/5; }
       .services-grid { grid-template-columns: 1fr; }
@@ -516,16 +678,36 @@
       footer { padding: 2.25rem 5%; }
     }
 
+    @media (max-width: 640px) {
+      /* Let headings wrap naturally instead of breaking at the
+         desktop-tuned <br> positions. */
+      .section-heading br { display: none; }
+      /* Extra clearance: the banner wraps to more lines as width shrinks. */
+      .hero { padding-top: 216px; }
+    }
+
   </style>
 </head>
 <body>
+
+  <!-- =====================
+       HEADER STACK (banner + nav, fixed together)
+  ===================== -->
+  <div class="header-stack">
+
+  <!-- =====================
+       TOP BANNER
+  ===================== -->
+  <div class="top-banner">
+    <span class="banner-label">About the Founder</span><span class="banner-divider">|</span><strong>Bryanne Biegel, CPA, MAcc</strong><span class="banner-divider">|</span>Accounting expertise meets AI fluency — built for bookkeeping and accounting firms and small businesses ready to move forward.
+  </div>
 
   <!-- =====================
        NAV
   ===================== -->
   <nav>
     <a href="index.html" class="nav-logo">
-      <svg width="32" height="32" viewBox="0 0 64 64" aria-label="AI-Empowered Solutions">
+      <svg width="32" height="32" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
         <rect width="64" height="64" fill="#2A2320"/>
         <g stroke="#FCF6EF" stroke-width="5.5" stroke-linejoin="miter" stroke-linecap="butt" transform="translate(9 9)" fill="none">
           <path d="M7 41 L23 9 L39 41"/>
@@ -539,25 +721,75 @@
       <li><a href="#services">Services</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="mailto:bryanne@ai-empoweredsolutions.com" class="nav-cta">Book a Call</a></li>
+      <li><a href="https://calendly.com/bryanne-ai-empoweredsolutions/30min" class="nav-cta" target="_blank" rel="noopener" aria-label="Book a call (opens Calendly in a new tab)">Book a Call</a></li>
     </ul>
   </nav>
+
+  </div><!-- /.header-stack -->
 
 
   <!-- =====================
        HERO
   ===================== -->
   <section class="hero">
+    <div class="hero-layout">
     <div class="hero-inner">
-      <span class="eyebrow">AI Strategy &amp; Training for Small Businesses</span>
-      <h1>No hype. We meet you<br><span style="color:var(--mauve)">where you are.</span></h1>
-      <p class="hero-mission">We exist to ensure that every small business has the tools, support, and strategy to become fully AI-empowered.</p>
-      <p class="hero-sub">AI-Empowered Solutions helps small service businesses build and execute AI strategies that actually work — with training your team will trust and results you can measure.</p>
+      <span class="eyebrow">Training, Presentations, Advisory, Implementation</span>
+      <h1>We meet you <span style="color:var(--mauve)">where you are.</span></h1>
+      <p class="hero-mission">We specialize in AI for accounting and bookkeeping firms and small businesses. We also design and deliver presentations for associations and organizations.</p>
+      <p class="hero-sub">Have a different AI need? We're open to exploring how we can help — and if we're not the right fit, we'll be honest and point you in the right direction.</p>
       <div class="cta-group">
-        <a href="#contact" class="btn-primary">Let's Connect. Tell Us About You.</a>
+        <a href="https://calendly.com/bryanne-ai-empoweredsolutions/30min" class="btn-primary" target="_blank" rel="noopener" aria-label="Book a meeting (opens Calendly in a new tab)">Book a Meeting</a>
         <a href="#services" class="btn-secondary">See How It Works</a>
       </div>
     </div>
+
+    <!-- Decorative desk-objects clipart. Hand-authored inline SVG using the
+         brand tokens directly, so it needs no external file and scales
+         cleanly. Purely decorative — hidden from assistive tech. -->
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 280 350" xmlns="http://www.w3.org/2000/svg" focusable="false">
+        <!-- transparent background: the hero's own greige shows through -->
+
+        <!-- receipt, torn along the bottom -->
+        <path d="M44 60 H104 V214 L94 224 L84 214 L74 224 L64 214 L54 224 L44 214 Z"
+              fill="#FFFFFF" stroke="#2A2320" stroke-width="2" stroke-linejoin="miter"/>
+        <path d="M56 86 H92 M56 102 H92 M56 118 H84 M56 134 H92"
+              stroke="#2A2320" stroke-width="2"/>
+        <path d="M56 160 H78" stroke="#D2604A" stroke-width="5"/>
+
+        <!-- accent square, echoing the logo mark -->
+        <rect x="214" y="64" width="20" height="20" fill="#D2604A"/>
+
+        <!-- calculator -->
+        <rect x="176" y="150" width="72" height="96" fill="#F7DDD5" stroke="#2A2320" stroke-width="2"/>
+        <rect x="186" y="160" width="52" height="20" fill="#FCF6EF" stroke="#2A2320" stroke-width="2"/>
+        <rect x="186" y="192" width="12" height="12" fill="#2A2320"/>
+        <rect x="206" y="192" width="12" height="12" fill="#2A2320"/>
+        <rect x="226" y="192" width="12" height="12" fill="#2A2320"/>
+        <rect x="186" y="210" width="12" height="12" fill="#2A2320"/>
+        <rect x="206" y="210" width="12" height="12" fill="#2A2320"/>
+        <rect x="226" y="210" width="12" height="12" fill="#2A2320"/>
+        <rect x="186" y="228" width="12" height="12" fill="#2A2320"/>
+        <rect x="206" y="228" width="12" height="12" fill="#2A2320"/>
+        <rect x="226" y="228" width="12" height="12" fill="#D2604A"/>
+
+        <!-- desk edge -->
+        <path d="M20 312 H260" stroke="#2A2320" stroke-width="2"/>
+
+        <!-- stacked ledgers -->
+        <rect x="26" y="252" width="124" height="20" fill="#F7DDD5" stroke="#2A2320" stroke-width="2"/>
+        <rect x="34" y="272" width="116" height="20" fill="#FCF6EF" stroke="#2A2320" stroke-width="2"/>
+        <rect x="26" y="292" width="132" height="20" fill="#F7DDD5" stroke="#2A2320" stroke-width="2"/>
+        <path d="M40 252 V272 M48 272 V292 M40 292 V312" stroke="#2A2320" stroke-width="2"/>
+
+        <!-- mug -->
+        <rect x="186" y="270" width="52" height="42" fill="#FCF6EF" stroke="#2A2320" stroke-width="2"/>
+        <rect x="188" y="272" width="48" height="8" fill="#D2604A"/>
+        <rect x="238" y="282" width="16" height="18" fill="none" stroke="#2A2320" stroke-width="2"/>
+      </svg>
+    </div>
+    </div><!-- /.hero-layout -->
   </section>
 
 
@@ -568,9 +800,35 @@
     <div class="section-inner">
       <div class="problem-body">
         <span class="eyebrow">The Problem</span>
-        <h2 class="section-heading">You know AI matters.<br>You're just not sure where to start.</h2>
-        <p>You've heard the pitch. You've maybe tried a tool or two. But between the hype, the jargon, and the worry about how your team will react — <strong>real progress hasn't happened yet.</strong></p>
-        <p>We do this differently.</p>
+        <h2 class="section-heading">You know AI can save you time.<span class="heading-sub">You're just not sure if it's worth the investment.</span></h2>
+        <p>You've heard the stories — AI that gave wrong answers, made more work, or just didn't deliver. Meanwhile, you're buried in manual tasks with barely enough time to keep up, let alone stop and figure out where AI actually fits. The information out there is overwhelming. <strong>And yet, you know there's real value in it.</strong></p>
+        <p>At AI-Empowered Solutions, we start small and build out. Effective AI isn't built overnight — it takes time and the right foundation. The sooner you start, the sooner it becomes something that genuinely works for your organization.</p>
+        <p>We don't implement and disappear. We coach you through the entire process — making sure you're trained, confident, and empowered to use AI safely.</p>
+      </div>
+
+      <!-- "Start small and build out" — each step built from stacked units,
+           echoing the ledger stack in the hero. Decorative. -->
+      <div class="problem-art" aria-hidden="true">
+        <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" focusable="false">
+          <!-- goal marker, echoing the logo mark -->
+          <rect x="215" y="58" width="18" height="18" fill="#D2604A"/>
+
+          <!-- ascending steps -->
+          <rect x="30" y="196" width="52" height="44" fill="#F7DDD5" stroke="#2A2320" stroke-width="2"/>
+          <rect x="86" y="162" width="52" height="78" fill="#FCF6EF" stroke="#2A2320" stroke-width="2"/>
+          <rect x="142" y="128" width="52" height="112" fill="#F7DDD5" stroke="#2A2320" stroke-width="2"/>
+          <rect x="198" y="94" width="52" height="146" fill="#FCF6EF" stroke="#2A2320" stroke-width="2"/>
+
+          <!-- stacked-unit divisions -->
+          <path d="M86 196 H138 M142 196 H194 M142 162 H194 M198 196 H250 M198 162 H250 M198 128 H250"
+                stroke="#2A2320" stroke-width="2"/>
+
+          <!-- the step you're building toward -->
+          <rect x="200" y="96" width="48" height="16" fill="#D2604A"/>
+
+          <!-- ground -->
+          <path d="M20 240 H260" stroke="#2A2320" stroke-width="2"/>
+        </svg>
       </div>
     </div>
   </section>
@@ -582,37 +840,85 @@
   <section class="services" id="services">
     <div class="section-inner">
       <span class="eyebrow">What We Do</span>
-      <h2 class="section-heading">Everything you need to go from<br>AI-curious to AI-powered.</h2>
+      <h2 class="section-heading">Everything you need to go from<br>AI-curious to AI-empowered.</h2>
       <div class="services-grid">
 
         <div class="service-card">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" focusable="false">
+              <rect x="9" y="8" width="28" height="40" fill="#FCF6EF" stroke="#2A2320" stroke-width="3"/>
+              <path d="M16 18 H30 M16 26 H30 M16 34 H24" stroke="#2A2320" stroke-width="2.5"/>
+              <rect x="27" y="26" width="26" height="26" fill="#F7DDD5" stroke="#2A2320" stroke-width="3"/>
+              <path d="M53 52 L60 59" stroke="#D2604A" stroke-width="3"/>
+            </svg>
+          </div>
           <span class="service-num">01</span>
-          <h3>AI Needs Discussion</h3>
-          <p>We start by understanding your world — what tools you already have access to, what problems you're trying to solve, and what's standing in the way. Then we bridge the gap between uncertainty and a clear path forward.</p>
-          <div class="service-tagline">Clarity before action.</div>
+          <h3>AI Discovery</h3>
+          <p>We start by understanding your world — what you're working with, what's slowing you down, and where AI can make the biggest difference. No jargon, no pressure. Just an honest look at where you are and where you could go.</p>
+          <div class="service-tagline">Clarity before anything else.</div>
         </div>
 
         <div class="service-card">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" focusable="false">
+              <path d="M7 9 H39 V29 H21 L15 36 V29 H7 Z" fill="#FCF6EF" stroke="#2A2320" stroke-width="3"/>
+              <path d="M25 33 H57 V53 H39 L33 60 V53 H25 Z" fill="#F7DDD5" stroke="#2A2320" stroke-width="3"/>
+              <rect x="33" y="39" width="9" height="9" fill="#D2604A"/>
+            </svg>
+          </div>
           <span class="service-num">02</span>
-          <h3>Team Training</h3>
-          <p>AI adoption works best when it comes from the ground up. We train your team in a way that builds real confidence and trust with their employer — so people embrace the change instead of resisting it.</p>
-          <div class="service-tagline">Bottom-up adoption that actually sticks.</div>
+          <h3>Training &amp; Coaching</h3>
+          <p>We don't just show you the tools and leave. We coach you and your team through the process — building real confidence so you feel trained, capable, and empowered to use AI safely in your day-to-day work.</p>
+          <div class="service-tagline">Confident, not just informed.</div>
         </div>
 
         <div class="service-card">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" focusable="false">
+              <rect x="8" y="12" width="48" height="40" fill="#FCF6EF" stroke="#2A2320" stroke-width="3"/>
+              <rect x="42" y="14" width="12" height="9" fill="#D2604A"/>
+              <path d="M24 12 V52 M40 12 V52 M8 25 H56 M8 39 H56" stroke="#2A2320" stroke-width="2.5"/>
+            </svg>
+          </div>
           <span class="service-num">03</span>
-          <h3>Strategy &amp; Implementation</h3>
-          <p>With your team on board, we turn your AI approach into something formal and lasting — documented procedures, clear policies, and a framework your business can operate from with confidence.</p>
-          <div class="service-tagline">Structure that scales with your business.</div>
+          <h3>Planning &amp; Implementation</h3>
+          <p>We start small and build out. With a clear foundation in place, we help you implement AI in a way that's practical, documented, and designed to grow with your business over time.</p>
+          <div class="service-tagline">Start small. Build what lasts.</div>
         </div>
 
         <div class="service-card">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" focusable="false">
+              <path d="M32 40 V17" stroke="#2A2320" stroke-width="3"/>
+              <rect x="16" y="17" width="16" height="11" fill="#FCF6EF" stroke="#2A2320" stroke-width="3"/>
+              <rect x="32" y="25" width="16" height="11" fill="#D2604A" stroke="#2A2320" stroke-width="3"/>
+              <path d="M20 40 H44 L40 56 H24 Z" fill="#F7DDD5" stroke="#2A2320" stroke-width="3"/>
+            </svg>
+          </div>
           <span class="service-num">04</span>
-          <h3>Ongoing Advisory &amp; ROI</h3>
-          <p>AI moves fast. We provide ongoing support to keep your strategy current, measure what's working, and make sure you're getting real return on what you've invested.</p>
-          <div class="service-tagline">Stay current. Stay accountable.</div>
+          <h3>Ongoing Support &amp; Advisory</h3>
+          <p>AI evolves quickly. We stay in your corner — checking in, answering questions, and making sure what you've built keeps working. You're never left to figure it out alone.</p>
+          <div class="service-tagline">We don't implement and disappear.</div>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================
+       FINAL CTA
+  ===================== -->
+  <section class="final-cta" id="contact">
+    <div class="section-inner">
+      <div class="final-cta-inner">
+        <span class="eyebrow">Get Started</span>
+        <h2 class="section-heading">Ready to make AI work for your business?</h2>
+        <p>Start with a free 30-minute discovery call. We'll learn about your business, tell you where we see the biggest opportunities, and be honest about whether we're the right fit.</p>
+        <div class="cta-group">
+          <a href="https://calendly.com/bryanne-ai-empoweredsolutions/30min" class="btn-primary" target="_blank" rel="noopener" aria-label="Book a call (opens Calendly in a new tab)">Book a Call</a>
+          <a href="mailto:bryanne@ai-empoweredsolutions.com" class="btn-secondary">Email Us</a>
+        </div>
       </div>
     </div>
   </section>
@@ -634,6 +940,7 @@
           <span class="eyebrow">About</span>
           <h2 class="section-heading">Bryanne Biegel, CPA, MAcc</h2>
           <span class="about-founder-label">Founder</span>
+          <p class="about-tagline">Public accounting background spanning audit, financial reporting, and bookkeeping. Built deep AI expertise independently. Now bridging both — helping bookkeeping and accounting firms and small businesses become genuinely AI-empowered.</p>
           <p>Bryanne brings accounting and consulting experience across some of the most varied and demanding business environments — small owner-operated businesses, oil and gas litigation, valuations, agriculture, logging, non-profits, and Indigenous organizations.</p>
           <p>That breadth means she understands how different every business actually is — and why cookie-cutter AI advice doesn't work. She self-taught AI and built AI-Empowered Solutions to bridge the gap between real-world business operations and what AI can actually do for them.</p>
           <div class="about-creds">
@@ -648,40 +955,12 @@
   </section>
 
 
-  <!-- =====================
-       FINAL CTA
-  ===================== -->
-  <section class="final-cta">
-    <div class="section-inner">
-      <div class="final-cta-inner">
-        <span class="eyebrow">Get Started</span>
-        <h2 class="section-heading">Ready to make AI work for your business?</h2>
-        <p>Start with a free 30-minute discovery call. We'll learn about your business, tell you where we see the biggest opportunities, and be honest about whether we're the right fit.</p>
-        <a href="mailto:bryanne@ai-empoweredsolutions.com" class="btn-primary">Book a Call</a>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- =====================
-       CONTACT
-  ===================== -->
-  <section class="contact" id="contact">
-    <div class="section-inner">
-      <div class="contact-inner">
-        <span class="eyebrow">Let's Connect</span>
-        <h2 class="section-heading">Tell Us About You.</h2>
-        <p class="contact-sub">Not sure where to start? That's exactly where we begin. Fill out the form below and we'll be in touch.</p>
-        <iframe src="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=qISmci44l02UAKMkGyZGa9sHiu8XWKZNvJKbWwhM-2VUQzFaNjBOV1JPODlGSDhSM0hXWlVYVkhNRi4u&embed=true" width="100%" height="600" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width: 100%; border-radius: 8px;" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
-      </div>
-    </div>
-  </section>
 
   <!-- =====================
        DISCLAIMER
   ===================== -->
   <div class="disclaimer">
-    <p><strong>Disclaimer:</strong> AI-Empowered Solutions provides AI strategy and training services only. Nothing on this website or in any engagement constitutes financial, accounting, tax, legal, regulatory, or privacy law advice. For advice in those areas, please consult a qualified professional.</p>
+    <p><strong>Disclaimer:</strong> AI-Empowered Solutions provides AI consulting and training services only. Nothing on this website or in any engagement constitutes financial, accounting, tax, legal, regulatory, privacy law, cybersecurity, data security, IT infrastructure, software engineering, or data engineering advice. AI tools and implementations carry inherent risks including but not limited to data privacy, security vulnerabilities, and output accuracy — clients are responsible for evaluating suitability for their specific environment. For advice in any of the above areas, please consult a qualified professional.</p>
   </div>
 
   <!-- =====================

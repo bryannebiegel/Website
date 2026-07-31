@@ -27,6 +27,7 @@
       --ink-mid:     #544A44;
       --mauve:       #D2604A;
       --mauve-dark:  #B24328;
+      --mauve-deep:  #9E3820;
       --white:       #FFFFFF;
       --border:      #E7DACB;
       --ink-90:  rgba(42,35,32,0.90);
@@ -54,6 +55,21 @@
       color: var(--ink);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+    }
+
+    /* Visible keyboard focus — no change to resting appearance */
+    a:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+
+    /* Respect reduced-motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
     }
 
     /* =====================
@@ -97,7 +113,7 @@
     .nav-links a {
       font-size: 0.875rem;
       font-weight: 400;
-      color: var(--ink-60);
+      color: var(--ink-70);
       text-decoration: none;
       transition: color 0.2s;
     }
@@ -105,15 +121,15 @@
     .nav-links a:hover { color: var(--ink); }
 
     .nav-cta {
-      background: var(--mauve) !important;
-      color: white !important;
+      background: var(--mauve-dark) !important;
+      color: var(--white) !important;
       padding: 8px 20px !important;
       border-radius: 0 !important;
       font-weight: 500 !important;
       transition: background 0.2s !important;
     }
 
-    .nav-cta:hover { background: var(--mauve-dark) !important; }
+    .nav-cta:hover { background: var(--mauve-deep) !important; }
 
     /* =====================
        PAGE CONTENT
@@ -133,7 +149,7 @@
       font-weight: 500;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--mauve);
+      color: var(--mauve-dark);
       margin-bottom: 1.25rem;
       display: block;
     }
@@ -144,13 +160,14 @@
       font-weight: 900;
       line-height: 1.1;
       letter-spacing: -0.02em;
+      text-wrap: balance;
       color: var(--ink);
       margin-bottom: 0.75rem;
     }
 
     .policy-effective {
       font-size: 0.875rem;
-      color: var(--ink-45);
+      color: var(--ink-70);
       margin-bottom: 2.5rem;
       padding-bottom: 2.5rem;
       border-bottom: 1px solid var(--border);
@@ -251,8 +268,10 @@
 
     .contact-box p:last-child { margin-bottom: 0 !important; }
 
+    /* Deeper accent here: the blush contact-box background is darker than
+       the page, so mauve-dark falls just under the 4.5 contrast threshold. */
     .contact-box a {
-      color: var(--mauve);
+      color: var(--mauve-deep);
       text-decoration: none;
     }
 
@@ -276,14 +295,14 @@
 
     .disclaimer p {
       font-size: 0.775rem;
-      color: var(--ink-45);
+      color: var(--ink-70);
       line-height: 1.7;
       max-width: 1100px;
       margin: 0 auto;
     }
 
     .disclaimer strong {
-      color: var(--ink-60);
+      color: var(--ink-90);
       font-weight: 600;
     }
 
@@ -327,12 +346,12 @@
       font-family: var(--font-mono);
       font-size: 0.7rem;
       letter-spacing: 0.08em;
-      color: var(--ink-45);
+      color: var(--ink-70);
     }
 
     .footer-policy-link {
       font-size: 0.775rem;
-      color: var(--ink-45);
+      color: var(--ink-70);
       text-decoration: none;
     }
 
@@ -343,7 +362,10 @@
     ===================== */
     @media (max-width: 768px) {
       nav { padding: 0 5%; }
-      .nav-links { display: none; }
+      /* Collapse the text links but keep the booking CTA reachable,
+         matching the home page. */
+      .nav-links { gap: 0; }
+      .nav-links li:not(:last-child) { display: none; }
       .policy-page { padding: 108px 5% 72px; }
       .disclaimer { padding: 1.5rem 5%; }
       footer { padding: 2.25rem 5%; }
@@ -358,7 +380,7 @@
   ===================== -->
   <nav>
     <a href="index.html" class="nav-logo">
-      <svg width="32" height="32" viewBox="0 0 64 64" aria-label="AI-Empowered Solutions">
+      <svg width="32" height="32" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
         <rect width="64" height="64" fill="#2A2320"/>
         <g stroke="#FCF6EF" stroke-width="5.5" stroke-linejoin="miter" stroke-linecap="butt" transform="translate(9 9)" fill="none">
           <path d="M7 41 L23 9 L39 41"/>
@@ -372,7 +394,7 @@
       <li><a href="index.html#services">Services</a></li>
       <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#contact">Contact</a></li>
-      <li><a href="mailto:bryanne@ai-empoweredsolutions.com" class="nav-cta">Book a Call</a></li>
+      <li><a href="https://calendly.com/bryanne-ai-empoweredsolutions/30min" class="nav-cta" target="_blank" rel="noopener" aria-label="Book a call (opens Calendly in a new tab)">Book a Call</a></li>
     </ul>
   </nav>
 
@@ -385,7 +407,7 @@
 
       <span class="policy-label">Legal</span>
       <h1 class="policy-title">Privacy Policy</h1>
-      <p class="policy-effective">Effective date: June 30, 2026</p>
+      <p class="policy-effective">Effective date: July 31, 2026</p>
 
       <p class="policy-intro">AI-Empowered Solutions ("we", "us", "our") is committed to protecting the privacy of personal information we collect through ai-empoweredsolutions.com (the "Site") and in the course of our business. This Privacy Policy explains what personal information we collect, why we collect it, how we use and disclose it, and the choices and rights available to you. This Policy is intended to comply with Alberta's <em>Personal Information Protection Act</em>, S.A. 2003, c. P-6.5 ("PIPA").</p>
 
@@ -406,7 +428,7 @@
         <ul>
           <li>Name</li>
           <li>Email address</li>
-          <li>Any other information you choose to include in the content of your message (contact form) or scheduling request (Calendly)</li>
+          <li>Any other information you choose to include in an email you send us, or in a scheduling request (Calendly)</li>
         </ul>
         <p>We do not knowingly collect personal information from children, and we do not collect sensitive categories of personal information (such as financial, health, or government identification numbers) through the Site.</p>
       </div>
@@ -415,7 +437,7 @@
         <h2>3. Why We Collect Your Personal Information</h2>
         <p>We collect personal information only for purposes that a reasonable person would consider appropriate in the circumstances, and only to the extent necessary for those purposes. We collect and use your name and email address to:</p>
         <ul>
-          <li>Respond to your inquiries, questions, or requests submitted through the contact form</li>
+          <li>Respond to inquiries, questions, or requests you send us by email</li>
           <li>Schedule and confirm discovery calls and meetings</li>
           <li>Communicate with you about our services</li>
           <li>Maintain records of our correspondence with you</li>
@@ -425,7 +447,7 @@
 
       <div class="policy-section">
         <h2>4. Consent</h2>
-        <p>By submitting your name and email address through our contact form or a scheduling request, you consent to our collection, use, and disclosure of that information as described in this Policy. You may withdraw your consent at any time, subject to legal or contractual restrictions and reasonable notice, by contacting our Privacy Officer using the details in Section 1. If you withdraw consent, we may not be able to respond to your inquiry, book a meeting with you, or continue providing certain services to you.</p>
+        <p>By sending us an email or submitting a scheduling request, you consent to our collection, use, and disclosure of that information as described in this Policy. You may withdraw your consent at any time, subject to legal or contractual restrictions and reasonable notice, by contacting our Privacy Officer using the details in Section 1. If you withdraw consent, we may not be able to respond to your inquiry, book a meeting with you, or continue providing certain services to you.</p>
       </div>
 
       <div class="policy-section">
@@ -434,7 +456,7 @@
 
         <div class="provider-block">
           <p class="provider-name">Anthropic, PBC ("Anthropic")</p>
-          <p>Emails you send us (including through our contact form) may be forwarded to or synced with Claude Team, an artificial intelligence workspace product, which we use to summarize, organize, and triage correspondence.</p>
+          <p>Emails you send us may be forwarded to or synced with Claude Team, an artificial intelligence workspace product, which we use to summarize, organize, and triage correspondence.</p>
         </div>
 
         <div class="provider-block">
@@ -447,9 +469,17 @@
           <p>When you book a discovery call or meeting with us, Calendly collects your name, email address, and any details you provide in the scheduling form on our behalf.</p>
         </div>
 
+        <div class="provider-block">
+          <p class="provider-name">Google LLC ("Google")</p>
+          <p>Our Site loads typefaces from Google Fonts. When your browser requests those font files, your IP address and basic technical details of the request are transmitted directly to Google by your browser. We do not use Google Fonts to identify you, we do not receive this information, and no name or email address is involved.</p>
+        </div>
+
+        <p>When you book through Calendly, you interact directly with Calendly on its own platform. That interaction is governed by Calendly's Terms of Use and Privacy Notice in addition to this Policy, and we encourage you to review them at <a href="https://calendly.com/legal" target="_blank" rel="noopener" style="color:var(--mauve-dark);text-decoration:none;">calendly.com/legal</a>. Nothing in this Policy limits your rights against us, and we remain accountable for the personal information we ask Calendly to collect on our behalf.</p>
+
         <p>We do not sell your personal information, and we do not disclose it to third parties for their own marketing purposes. We disclose personal information only:</p>
         <ul>
           <li>To Anthropic, Microsoft, and Calendly, as our service providers, for the purposes described above</li>
+          <li>To Google, only to the limited extent your browser requests font files from Google in order to display our Site</li>
           <li>Where required or authorized by law (for example, in response to a valid legal process)</li>
           <li>With your consent</li>
         </ul>
@@ -474,11 +504,17 @@
         <div class="provider-block">
           <p class="provider-name">Calendly</p>
           <p><strong>Country:</strong> Personal information collected through Calendly may be collected, used, disclosed, and stored in the United States.</p>
-          <p><strong>Purpose:</strong> Calendly is authorized to use this information solely to provide meeting scheduling and calendar coordination services to us.</p>
+          <p><strong>Purpose:</strong> We authorize Calendly to use this information to provide meeting scheduling and calendar coordination services to us. Calendly may also process certain information for its own purposes as described in its Privacy Notice.</p>
+        </div>
+
+        <div class="provider-block">
+          <p class="provider-name">Google (Google Fonts)</p>
+          <p><strong>Country:</strong> Font file requests may be handled by Google servers in the United States or other countries in which Google operates.</p>
+          <p><strong>Purpose:</strong> Google receives your IP address and basic request details only as a consequence of your browser retrieving the font files needed to display our Site. We do not send Google your name, email address, or the contents of any message.</p>
         </div>
 
         <p>Personal information held by any of these service providers is subject to the laws of the jurisdiction in which it is located, including possible lawful access requests by that jurisdiction's courts, law enforcement, or government authorities.</p>
-        <p>Our policies on the use of service providers outside Canada are available on request by contacting our Privacy Officer, Bryanne Biegel, at <a href="mailto:bryanne@ai-empoweredsolutions.com" style="color:var(--mauve);text-decoration:none;">bryanne@ai-empoweredsolutions.com</a>, who can also answer any questions you have about these arrangements.</p>
+        <p>Our policies on the use of service providers outside Canada are available on request by contacting our Privacy Officer, Bryanne Biegel, at <a href="mailto:bryanne@ai-empoweredsolutions.com" style="color:var(--mauve-dark);text-decoration:none;">bryanne@ai-empoweredsolutions.com</a>, who can also answer any questions you have about these arrangements.</p>
         <p>We remain responsible for personal information transferred to our service providers for processing and require that it be used only for the purposes we authorize.</p>
       </div>
 
@@ -525,7 +561,7 @@
        DISCLAIMER
   ===================== -->
   <div class="disclaimer">
-    <p><strong>Disclaimer:</strong> AI-Empowered Solutions provides AI strategy and training services only. Nothing on this website or in any engagement constitutes financial, accounting, tax, legal, regulatory, or privacy law advice. For advice in those areas, please consult a qualified professional.</p>
+    <p><strong>Disclaimer:</strong> AI-Empowered Solutions provides AI consulting and training services only. Nothing on this website or in any engagement constitutes financial, accounting, tax, legal, regulatory, privacy law, cybersecurity, data security, IT infrastructure, software engineering, or data engineering advice. AI tools and implementations carry inherent risks including but not limited to data privacy, security vulnerabilities, and output accuracy — clients are responsible for evaluating suitability for their specific environment. For advice in any of the above areas, please consult a qualified professional.</p>
   </div>
 
   <!-- =====================
