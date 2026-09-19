@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Info — AI-Empowered Solutions</title>
+  <meta name="description" content="Key AI considerations for accounting and finance leaders — data safety, performance risk, controls, strategy, change management, and governance.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+
+    /* =====================
+       RESET
+    ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; }
+
+    /* =====================
+       DESIGN TOKENS
+    ===================== */
+    :root {
+      --greige:      #FCF6EF;
+      --ash:         #FCF6EF;
+      --stone:       #F7DDD5;
+      --ink:         #2A2320;
+      --ink-mid:     #544A44;
+      --mauve:       #D2604A;
+      --mauve-dark:  #B24328;
+      --mauve-deep:  #9E3820;
+      --white:       #FFFFFF;
+      --border:      #E7DACB;
+      --ink-90:  rgba(42,35,32,0.90);
+      --ink-70:  rgba(42,35,32,0.70);
+      --ink-60:  rgba(42,35,32,0.60);
+      --ink-45:  rgba(42,35,32,0.45);
+      --ink-30:  rgba(42,35,32,0.30);
+      --ink-15:  rgba(42,35,32,0.15);
+      --ink-10:  rgba(42,35,32,0.10);
+      --surface-card-hover: #FDF8F2;
+      --surface-quote:      #F7DDD5;
+
+      --font-sans: 'Public Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+    }
+
+    /* =====================
+       BASE
+    ===================== */
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--greige);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+
+    /* =====================
+       NAV
+    ===================== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--greige);
+      border-bottom: 1px solid var(--ink-10);
+      padding: 0 6%;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-wordmark {
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--ink-70);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-cta {
+      background: var(--mauve-dark) !important;
+      color: var(--white) !important;
+      padding: 8px 20px !important;
+      border-radius: 0 !important;
+      font-weight: 500 !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--mauve-deep) !important; }
+
+    /* =====================
+       PAGE HEADER
+    ===================== */
+    .info-page {
+      padding: 128px 6% 100px;
+    }
+
+    .info-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .info-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mauve-dark);
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .info-title {
+      font-family: var(--font-sans);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      text-wrap: balance;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    .info-subtitle {
+      font-size: 1.125rem;
+      font-weight: 400;
+      color: var(--ink-mid);
+      line-height: 1.7;
+      margin-bottom: 3.5rem;
+      max-width: 700px;
+    }
+
+    /* =====================
+       TOPIC CARDS
+    ===================== */
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 2rem;
+    }
+
+    .topic-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 2.25rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: border-color 0.2s;
+    }
+
+    .topic-card:hover {
+      border-color: var(--ink-30);
+    }
+
+    .topic-number {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mauve);
+    }
+
+    .topic-card h2 {
+      font-family: var(--font-sans);
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+
+    .topic-card p {
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      line-height: 1.75;
+    }
+
+    .topic-card ul {
+      list-style: none;
+      margin: 0.25rem 0 0;
+    }
+
+    .topic-card ul li {
+      font-size: 0.925rem;
+      color: var(--ink-mid);
+      line-height: 1.75;
+      padding: 0.25rem 0 0.25rem 1.25rem;
+      position: relative;
+    }
+
+    .topic-card ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.75em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--mauve);
+    }
+
+    /* =====================
+       SUBSCRIBE
+    ===================== */
+    .subscribe {
+      background: var(--stone);
+      text-align: center;
+      padding: 100px 6%;
+    }
+
+    .subscribe-inner {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .subscribe .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mauve-dark);
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .subscribe h2 {
+      font-family: var(--font-sans);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    .subscribe p {
+      font-size: 1.0625rem;
+      font-weight: 400;
+      color: var(--ink-mid);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .subscribe-form {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .subscribe-input {
+      flex: 1 1 260px;
+      padding: 14px 18px;
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      color: var(--ink);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 0;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .subscribe-input::placeholder {
+      color: var(--ink-45);
+    }
+
+    .subscribe-input:focus {
+      border-color: var(--mauve-dark);
+    }
+
+    .subscribe-btn {
+      display: inline-block;
+      background: var(--mauve-dark);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 0;
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .subscribe-btn:hover { background: var(--mauve-deep); }
+
+    /* =====================
+       DISCLAIMER
+    ===================== */
+    .disclaimer {
+      background: var(--greige);
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 6%;
+    }
+
+    .disclaimer p {
+      font-size: 0.775rem;
+      color: var(--ink-70);
+      line-height: 1.7;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .disclaimer strong {
+      color: var(--ink-90);
+      font-weight: 600;
+    }
+
+    /* =====================
+       FOOTER
+    ===================== */
+    footer {
+      background: var(--ash);
+      border-top: 2px solid var(--ink);
+      padding: 2.25rem 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .footer-wordmark {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: var(--ink-70);
+    }
+
+    .footer-policy-link {
+      font-size: 0.775rem;
+      color: var(--ink-70);
+      text-decoration: none;
+    }
+
+    .footer-policy-link:hover { color: var(--ink); }
+
+    /* =====================
+       RESPONSIVE
+    ===================== */
+    @media (max-width: 768px) {
+      nav { padding: 0 5%; }
+      .nav-links { gap: 0; }
+      .nav-links li:not(:last-child) { display: none; }
+      .info-page { padding: 108px 5% 72px; }
+      .topic-grid { grid-template-columns: 1fr; }
+      .disclaimer { padding: 1.5rem 5%; }
+      footer { padding: 2.25rem 5%; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- =====================
+       NAV
+  ===================== -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <svg width="32" height="32" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <rect width="64" height="64" fill="#2A2320"/>
+        <g stroke="#FCF6EF" stroke-width="5.5" stroke-linejoin="miter" stroke-linecap="butt" transform="translate(9 9)" fill="none">
+          <path d="M7 41 L23 9 L39 41"/>
+          <path d="M13.5 28 L32.5 28"/>
+        </g>
+        <rect x="46" y="10" width="8" height="8" fill="#D2604A"/>
+      </svg>
+      <span class="nav-wordmark">AI-Empowered Solutions</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="learning.html">Learning</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="https://bookings.cloud.microsoft/bookwithme/user/09854014817f487299d8889fc8e90f66@ai-empoweredsolutions.com/meetingtype/_IkEgj0zhUyB3JXP19qn7g2?anonymous&ismsaljsauthenabled&ep=mlink" class="nav-cta" target="_blank" rel="noopener" aria-label="Schedule online (opens Microsoft Bookings in a new tab)">Schedule Online</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- =====================
+       AI INFO
+  ===================== -->
+  <div class="info-page">
+    <div class="info-inner">
+
+      <span class="info-label">AI Info</span>
+      <h1 class="info-title">AI is overwhelming.</h1>
+      <p class="info-subtitle">Here are the things you should be considering as a Finance or Accounting Leader in AI.</p>
+
+      <div class="topic-grid">
+
+        <div class="topic-card">
+          <span class="topic-number">01</span>
+          <h2>Data Safety and Security</h2>
+          <p>Your clients trust you with their most sensitive information. Before adopting any AI tool, you need to understand where data goes, who can access it, and how it's protected.</p>
+          <ul>
+            <li>Where does your data go when you use an AI tool?</li>
+            <li>Is client data being used to train models?</li>
+            <li>What are the encryption and access controls?</li>
+            <li>How do you evaluate a vendor's data handling practices?</li>
+          </ul>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-number">02</span>
+          <h2>Performance Risk</h2>
+          <p>AI tools can be impressively capable — and impressively wrong. Understanding where AI performs well and where it falls short is critical before putting it into production workflows.</p>
+          <ul>
+            <li>How do you identify and manage hallucinations?</li>
+            <li>What tasks are high-risk vs. low-risk for AI?</li>
+            <li>How do you measure whether AI output is reliable?</li>
+            <li>What happens when an AI tool fails silently?</li>
+          </ul>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-number">03</span>
+          <h2>Effective Controls</h2>
+          <p>AI doesn't replace professional judgment — it requires it. The right controls ensure that AI is a tool in your process, not a black box making decisions on your behalf.</p>
+          <ul>
+            <li>What review and approval steps should be in place?</li>
+            <li>How do you build human-in-the-loop workflows?</li>
+            <li>What documentation do you need for AI-assisted work?</li>
+            <li>How do you audit AI outputs?</li>
+          </ul>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-number">04</span>
+          <h2>Strategic Advancement</h2>
+          <p>AI isn't just about efficiency — it's about positioning your firm for the future. The leaders who move thoughtfully now will have a significant advantage.</p>
+          <ul>
+            <li>Where should you start with AI in your practice?</li>
+            <li>How do you build an AI roadmap that fits your firm?</li>
+            <li>What does competitive advantage look like with AI?</li>
+            <li>How do you measure ROI on AI investments?</li>
+          </ul>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-number">05</span>
+          <h2>Supporting Your Team Through Change</h2>
+          <p>Technology adoption is a people challenge as much as a technical one. Your team needs clarity, confidence, and support to embrace AI effectively.</p>
+          <ul>
+            <li>How do you address fear and resistance around AI?</li>
+            <li>What training does your team actually need?</li>
+            <li>How do you create a culture of experimentation?</li>
+            <li>How do you communicate the "why" behind AI adoption?</li>
+          </ul>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-number">06</span>
+          <h2>AI Governance</h2>
+          <p>As AI becomes embedded in your workflows, you need clear policies that define how it's used, by whom, and under what conditions — before problems arise.</p>
+          <ul>
+            <li>What should an AI use policy cover?</li>
+            <li>Who is accountable for AI-driven decisions?</li>
+            <li>How do you stay compliant with evolving regulations?</li>
+            <li>What ethical considerations should guide your AI use?</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- =====================
+       SUBSCRIBE
+  ===================== -->
+  <div class="subscribe">
+    <div class="subscribe-inner">
+      <span class="eyebrow">Stay in the Loop</span>
+      <h2>Subscribe for future newsletters and updates</h2>
+      <p>Get practical AI insights for accounting and finance — no spam, just useful information delivered to your inbox.</p>
+      <form class="subscribe-form" action="https://formsubmit.co/bryanne@ai-empoweredsolutions.com" method="POST">
+        <input type="hidden" name="_subject" value="New newsletter subscriber from website">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://ai-empoweredsolutions.com/ai-info.html">
+        <input type="email" name="email" class="subscribe-input" placeholder="Your email address" required aria-label="Email address">
+        <button type="submit" class="subscribe-btn">Subscribe</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- =====================
+       DISCLAIMER
+  ===================== -->
+  <div class="disclaimer">
+    <p><strong>Disclaimer:</strong> AI-Empowered Solutions provides AI consulting and training services only. Nothing on this website or in any engagement constitutes financial, accounting, tax, legal, regulatory, privacy law, cybersecurity, data security, IT infrastructure, software engineering, or data engineering advice. AI tools and implementations carry inherent risks including but not limited to data privacy, security vulnerabilities, and output accuracy — clients are responsible for evaluating suitability for their specific environment. For advice in any of the above areas, please consult a qualified professional.</p>
+  </div>
+
+  <!-- =====================
+       FOOTER
+  ===================== -->
+  <footer>
+    <a href="index.html" class="footer-logo">
+      <svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true">
+        <rect width="64" height="64" fill="#2A2320"/>
+        <g stroke="#FCF6EF" stroke-width="5.5" stroke-linejoin="miter" stroke-linecap="butt" transform="translate(9 9)" fill="none">
+          <path d="M7 41 L23 9 L39 41"/>
+          <path d="M13.5 28 L32.5 28"/>
+        </g>
+        <rect x="46" y="10" width="8" height="8" fill="#D2604A"/>
+      </svg>
+      <span class="footer-wordmark">AI-Empowered Solutions</span>
+    </a>
+    <div class="footer-right">
+      <a href="privacy-policy.html" class="footer-policy-link">Privacy Policy</a>
+      <a href="terms-of-use.html" class="footer-policy-link">Terms of Use</a>
+      <span class="footer-copy">&copy; 2026 AI-Empowered Solutions. All rights reserved.</span>
+    </div>
+  </footer>
+
+</body>
+</html>

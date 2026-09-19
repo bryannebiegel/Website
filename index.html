@@ -525,6 +525,61 @@
     }
 
     /* =====================
+       SUBSCRIBE
+    ===================== */
+    .subscribe {
+      background: var(--stone);
+      text-align: center;
+    }
+
+    .subscribe-inner {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .subscribe p {
+      font-size: 1.0625rem;
+      font-weight: 400;
+      color: var(--ink-mid);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .subscribe-form {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .subscribe-input {
+      flex: 1 1 260px;
+      padding: 14px 18px;
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      color: var(--ink);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 0;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .subscribe-input::placeholder {
+      color: var(--ink-45);
+    }
+
+    .subscribe-input:focus {
+      border-color: var(--mauve-dark);
+    }
+
+    .subscribe-btn {
+      cursor: pointer;
+      border: none;
+      font-family: var(--font-sans);
+    }
+
+    /* =====================
        FINAL CTA
     ===================== */
     .final-cta {
@@ -721,6 +776,7 @@
       <li><a href="#services">Services</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="learning.html">Learning</a></li>
+      <li><a href="ai-info.html">AI Info</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="https://bookings.cloud.microsoft/bookwithme/user/09854014817f487299d8889fc8e90f66@ai-empoweredsolutions.com/meetingtype/_IkEgj0zhUyB3JXP19qn7g2?anonymous&ismsaljsauthenabled&ep=mlink" class="nav-cta" target="_blank" rel="noopener" aria-label="Schedule online (opens Microsoft Bookings in a new tab)">Schedule Online</a></li>
     </ul>
@@ -956,6 +1012,26 @@
   </section>
 
 
+
+  <!-- =====================
+       SUBSCRIBE
+  ===================== -->
+  <section class="subscribe">
+    <div class="section-inner">
+      <div class="subscribe-inner">
+        <span class="eyebrow">Stay in the Loop</span>
+        <h2 class="section-heading">Subscribe for future newsletters and updates</h2>
+        <p>Get practical AI insights for accounting and finance — no spam, just useful information delivered to your inbox.</p>
+        <form class="subscribe-form" action="https://formsubmit.co/bryanne@ai-empoweredsolutions.com" method="POST">
+          <input type="hidden" name="_subject" value="New newsletter subscriber from website">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://ai-empoweredsolutions.com/index.html">
+          <input type="email" name="email" class="subscribe-input" placeholder="Your email address" required aria-label="Email address">
+          <button type="submit" class="btn-primary subscribe-btn">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
 
   <!-- =====================
        DISCLAIMER
