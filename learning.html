@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning — AI-Empowered Solutions</title>
+  <meta name="description" content="Self-paced AI courses for accounting and finance professionals. Coming soon from AI-Empowered Solutions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+
+    /* =====================
+       RESET
+    ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; }
+
+    /* =====================
+       DESIGN TOKENS
+    ===================== */
+    :root {
+      --greige:      #FCF6EF;
+      --ash:         #FCF6EF;
+      --stone:       #F7DDD5;
+      --ink:         #2A2320;
+      --ink-mid:     #544A44;
+      --mauve:       #D2604A;
+      --mauve-dark:  #B24328;
+      --mauve-deep:  #9E3820;
+      --white:       #FFFFFF;
+      --border:      #E7DACB;
+      --ink-90:  rgba(42,35,32,0.90);
+      --ink-70:  rgba(42,35,32,0.70);
+      --ink-60:  rgba(42,35,32,0.60);
+      --ink-45:  rgba(42,35,32,0.45);
+      --ink-30:  rgba(42,35,32,0.30);
+      --ink-15:  rgba(42,35,32,0.15);
+      --ink-10:  rgba(42,35,32,0.10);
+      --surface-card-hover: #FDF8F2;
+      --surface-quote:      #F7DDD5;
+
+      --font-sans: 'Public Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+    }
+
+    /* =====================
+       BASE
+    ===================== */
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--greige);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Visible keyboard focus — no change to resting appearance */
+    a:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+
+    /* Respect reduced-motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+
+    /* =====================
+       NAV
+    ===================== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--greige);
+      border-bottom: 1px solid var(--ink-10);
+      padding: 0 6%;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-wordmark {
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--ink-70);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-cta {
+      background: var(--mauve-dark) !important;
+      color: var(--white) !important;
+      padding: 8px 20px !important;
+      border-radius: 0 !important;
+      font-weight: 500 !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--mauve-deep) !important; }
+
+    /* =====================
+       PAGE CONTENT
+    ===================== */
+    .learning-page {
+      padding: 128px 6% 100px;
+    }
+
+    .learning-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .learning-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mauve-dark);
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .learning-title {
+      font-family: var(--font-sans);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      text-wrap: balance;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    .learning-subtitle {
+      font-size: 1.125rem;
+      font-weight: 400;
+      color: var(--ink-mid);
+      line-height: 1.7;
+      margin-bottom: 3.5rem;
+      max-width: 640px;
+    }
+
+    /* =====================
+       COURSE CARDS
+    ===================== */
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+
+    .course-card {
+      position: relative;
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 2.5rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .course-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(252, 246, 239, 0.7);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 2;
+    }
+
+    .course-card-badge {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--mauve-dark);
+      padding: 10px 24px;
+      white-space: nowrap;
+    }
+
+    .course-number {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mauve);
+    }
+
+    .course-title {
+      font-family: var(--font-sans);
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+
+    .course-desc {
+      font-size: 0.925rem;
+      color: var(--ink-mid);
+      line-height: 1.7;
+    }
+
+    /* =====================
+       DISCLAIMER
+    ===================== */
+    .disclaimer {
+      background: var(--greige);
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 6%;
+    }
+
+    .disclaimer p {
+      font-size: 0.775rem;
+      color: var(--ink-70);
+      line-height: 1.7;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .disclaimer strong {
+      color: var(--ink-90);
+      font-weight: 600;
+    }
+
+    /* =====================
+       FOOTER
+    ===================== */
+    footer {
+      background: var(--ash);
+      border-top: 2px solid var(--ink);
+      padding: 2.25rem 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .footer-wordmark {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: var(--ink-70);
+    }
+
+    .footer-policy-link {
+      font-size: 0.775rem;
+      color: var(--ink-70);
+      text-decoration: none;
+    }
+
+    .footer-policy-link:hover { color: var(--ink); }
+
+    /* =====================
+       RESPONSIVE
+    ===================== */
+    @media (max-width: 768px) {
+      nav { padding: 0 5%; }
+      .nav-links { gap: 0; }
+      .nav-links li:not(:last-child) { display: none; }
+      .learning-page { padding: 108px 5% 72px; }
+      .course-grid { grid-template-columns: 1fr; }
+      .disclaimer { padding: 1.5rem 5%; }
+      footer { padding: 2.25rem 5%; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- =====================
+       NAV
+  ===================== -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <svg width="32" height="32" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <rect width="64" height="64" fill="#2A2320"/>
+        <g stroke="#FCF6EF" stroke-width="5.5" stroke-linejoin="miter" stroke-linecap="butt" transform="translate(9 9)" fill="none">
+          <path d="M7 41 L23 9 L39 41"/>
+          <path d="M13.5 28 L32.5 28"/>
+        </g>
+        <rect x="46" y="10" width="8" height="8" fill="#D2604A"/>
+      </svg>
+      <span class="nav-wordmark">AI-Empowered Solutions</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="https://bookings.cloud.microsoft/bookwithme/user/09854014817f487299d8889fc8e90f66@ai-empoweredsolutions.com/meetingtype/_IkEgj0zhUyB3JXP19qn7g2?anonymous&ismsaljsauthenabled&ep=mlink" class="nav-cta" target="_blank" rel="noopener" aria-label="Schedule online (opens Microsoft Bookings in a new tab)">Schedule Online</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- =====================
+       LEARNING
+  ===================== -->
+  <div class="learning-page">
+    <div class="learning-inner">
+
+      <span class="learning-label">Learning</span>
+      <h1 class="learning-title">Learning</h1>
+      <p class="learning-subtitle">Not ready to commit, but want to learn what this AI stuff is all about?</p>
+
+      <div class="course-grid">
+
+        <div class="course-card">
+          <span class="course-card-badge">Coming Soon</span>
+          <span class="course-number">Course 01</span>
+          <h2 class="course-title">Beginner's Guide to Agentic AI in Accounting and Finance Workflows</h2>
+          <p class="course-desc">A hands-on introduction to agentic AI and how it applies to everyday accounting and finance tasks.</p>
+        </div>
+
+        <div class="course-card">
+          <span class="course-card-badge">Coming Soon</span>
+          <span class="course-number">Course 02</span>
+          <h2 class="course-title">AI for Accounting Leaders</h2>
+          <p class="course-desc">Strategic guidance for firm owners and managers looking to lead their teams through AI adoption.</p>
+        </div>
+
+        <div class="course-card">
+          <span class="course-card-badge">Coming Soon</span>
+          <span class="course-number">Course 03</span>
+          <h2 class="course-title">AI for Staff Accountants</h2>
+          <p class="course-desc">Practical, day-to-day AI skills for accountants and bookkeepers ready to work smarter.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- =====================
+       DISCLAIMER
+  ===================== -->
+  <div class="disclaimer">
+    <p><strong>Disclaimer:</strong> AI-Empowered Solutions provides AI consulting and training services only. Nothing on this website or in any engagement constitutes financial, accounting, tax, legal, regulatory, privacy law, cybersecurity, data security, IT infrastructure, software engineering, or data engineering advice. AI tools and implementations carry inherent risks including but not limited to data privacy, security vulnerabilities, and output accuracy — clients are responsible for evaluating suitability for their specific environment. For advice in any of the above areas, please consult a qualified professional.</p>
+  </div>
+
+  <!-- =====================
+       FOOTER
+  ===================== -->
+  <footer>
+    <a href="index.html" class="footer-logo">
+      <svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true">
+        <rect width="64" height="64" fill="#2A2320"/>
+        <g stroke="#FCF6EF" stroke-width="5.5" stroke-linejoin="miter" stroke-linecap="butt" transform="translate(9 9)" fill="none">
+          <path d="M7 41 L23 9 L39 41"/>
+          <path d="M13.5 28 L32.5 28"/>
+        </g>
+        <rect x="46" y="10" width="8" height="8" fill="#D2604A"/>
+      </svg>
+      <span class="footer-wordmark">AI-Empowered Solutions</span>
+    </a>
+    <div class="footer-right">
+      <a href="privacy-policy.html" class="footer-policy-link">Privacy Policy</a>
+      <a href="terms-of-use.html" class="footer-policy-link">Terms of Use</a>
+      <span class="footer-copy">&copy; 2026 AI-Empowered Solutions. All rights reserved.</span>
+    </div>
+  </footer>
+
+</body>
+</html>
