@@ -173,26 +173,22 @@
     }
 
     /* =====================
-       TOPIC CARDS
+       TOPIC SECTIONS
     ===================== */
-    .topic-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-      gap: 2rem;
+    .topic-list {
+      max-width: 760px;
     }
 
-    .topic-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      padding: 2.25rem 2rem 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      transition: border-color 0.2s;
+    .topic-section {
+      padding-bottom: 2.5rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
     }
 
-    .topic-card:hover {
-      border-color: var(--ink-30);
+    .topic-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
     }
 
     .topic-number {
@@ -202,40 +198,44 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--mauve);
+      display: block;
+      margin-bottom: 0.75rem;
     }
 
-    .topic-card h2 {
+    .topic-section h2 {
       font-family: var(--font-sans);
       font-size: 1.25rem;
       font-weight: 700;
       line-height: 1.3;
       color: var(--ink);
+      margin-bottom: 0.75rem;
     }
 
-    .topic-card p {
-      font-size: 0.95rem;
+    .topic-section p {
+      font-size: 1rem;
       color: var(--ink-mid);
-      line-height: 1.75;
+      line-height: 1.85;
+      margin-bottom: 0.75rem;
     }
 
-    .topic-card ul {
+    .topic-section ul {
       list-style: none;
-      margin: 0.25rem 0 0;
+      margin: 0.5rem 0 0;
     }
 
-    .topic-card ul li {
-      font-size: 0.925rem;
+    .topic-section ul li {
+      font-size: 1rem;
       color: var(--ink-mid);
-      line-height: 1.75;
+      line-height: 1.8;
       padding: 0.25rem 0 0.25rem 1.25rem;
       position: relative;
     }
 
-    .topic-card ul li::before {
+    .topic-section ul li::before {
       content: '';
       position: absolute;
       left: 0;
-      top: 0.75em;
+      top: 0.8em;
       width: 5px;
       height: 5px;
       border-radius: 50%;
@@ -410,7 +410,6 @@
       .nav-links { gap: 0; }
       .nav-links li:not(:last-child) { display: none; }
       .info-page { padding: 108px 5% 72px; }
-      .topic-grid { grid-template-columns: 1fr; }
       .disclaimer { padding: 1.5rem 5%; }
       footer { padding: 2.25rem 5%; }
     }
@@ -454,9 +453,9 @@
       <h1 class="info-title">AI is overwhelming.</h1>
       <p class="info-subtitle">Here are the things you should be considering as a Finance or Accounting Leader in AI.</p>
 
-      <div class="topic-grid">
+      <div class="topic-list">
 
-        <div class="topic-card">
+        <div class="topic-section">
           <span class="topic-number">01</span>
           <h2>Data Safety and Security</h2>
           <p>Your clients trust you with their most sensitive information. Before adopting any AI tool, you need to understand where data goes, who can access it, and how it's protected.</p>
@@ -468,7 +467,7 @@
           </ul>
         </div>
 
-        <div class="topic-card">
+        <div class="topic-section">
           <span class="topic-number">02</span>
           <h2>Performance Risk</h2>
           <p>AI tools can be impressively capable — and impressively wrong. Understanding where AI performs well and where it falls short is critical before putting it into production workflows.</p>
@@ -480,7 +479,7 @@
           </ul>
         </div>
 
-        <div class="topic-card">
+        <div class="topic-section">
           <span class="topic-number">03</span>
           <h2>Effective Controls</h2>
           <p>AI doesn't replace professional judgment — it requires it. The right controls ensure that AI is a tool in your process, not a black box making decisions on your behalf.</p>
@@ -492,7 +491,7 @@
           </ul>
         </div>
 
-        <div class="topic-card">
+        <div class="topic-section">
           <span class="topic-number">04</span>
           <h2>Strategic Advancement</h2>
           <p>AI isn't just about efficiency — it's about positioning your firm for the future. The leaders who move thoughtfully now will have a significant advantage.</p>
@@ -504,7 +503,7 @@
           </ul>
         </div>
 
-        <div class="topic-card">
+        <div class="topic-section">
           <span class="topic-number">05</span>
           <h2>Supporting Your Team Through Change</h2>
           <p>Technology adoption is a people challenge as much as a technical one. Your team needs clarity, confidence, and support to embrace AI effectively.</p>
@@ -516,7 +515,7 @@
           </ul>
         </div>
 
-        <div class="topic-card">
+        <div class="topic-section">
           <span class="topic-number">06</span>
           <h2>AI Governance</h2>
           <p>As AI becomes embedded in your workflows, you need clear policies that define how it's used, by whom, and under what conditions — before problems arise.</p>
@@ -542,7 +541,7 @@
       <span class="eyebrow">Stay in the Loop</span>
       <h2>Subscribe for future newsletters and updates</h2>
       <p>Get practical AI insights for accounting and finance — no spam, just useful information delivered to your inbox.</p>
-      <form class="subscribe-form" action="https://formsubmit.co/bryanne@ai-empoweredsolutions.com" method="POST">
+      <form class="subscribe-form" action="https://formsubmit.co/aianalyst@ai-empoweredsolutions.com" method="POST">
         <input type="hidden" name="_subject" value="New newsletter subscriber from website">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_next" value="https://ai-empoweredsolutions.com/ai-info.html">
